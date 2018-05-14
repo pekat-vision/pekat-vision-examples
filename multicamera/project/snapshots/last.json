@@ -1,0 +1,102 @@
+{
+    "autoTrigger": {
+        "code": null,
+        "fileId": 1,
+        "templateId": null,
+        "videos": []
+    },
+    "lang": "en",
+    "modules": {
+        "items": [
+            {
+                "fileId": 152597357254,
+                "id": 1525973048781,
+                "label": "",
+                "type": "CODE",
+                "values": {}
+            },
+            {
+                "fileId": 152597356386,
+                "id": 1525973050301,
+                "label": "",
+                "type": "CODE",
+                "values": {}
+            },
+            {
+                "detectedInLast": false,
+                "detectorInDetector": false,
+                "fileId": null,
+                "id": 1525973588241,
+                "label": "",
+                "modelId": null,
+                "temp": {
+                    "code": null,
+                    "preprocessingRectangles": []
+                },
+                "type": "DETECTOR",
+                "values": {
+                    "classNames": [],
+                    "config": {
+                        "CLASSIFICATION": false,
+                        "COLOR_JITTERING": 0,
+                        "DETECTED_IN_LAST": false,
+                        "DETECTOR_IN_DETECTOR": false,
+                        "DETECT_ROTATE": false,
+                        "HORIZONTAL_FLIP": true,
+                        "NETWORK_SIZE": "balance",
+                        "ROTATE": true,
+                        "SHEAR": 0,
+                        "VALIDATING_IMAGES_PERCENT": 0,
+                        "VERTICAL_FLIP": true
+                    },
+                    "imageRectangles": []
+                },
+                "visited": false
+            },
+            {
+                "fileId": null,
+                "id": 1525973599183,
+                "label": "",
+                "modelId": null,
+                "temp": {
+                    "code": null
+                },
+                "type": "CLASSIFIER",
+                "values": {
+                    "classNames": [],
+                    "config": {
+                        "COLOR_JITTERING": 0,
+                        "HEIGHT_SHIFT": 0,
+                        "HORIZONTAL_FLIP": true,
+                        "NETWORK_SIZE": "balance",
+                        "ROTATE": true,
+                        "SHEAR": 0,
+                        "VALIDATING_IMAGES_PERCENT": 0,
+                        "VERTICAL_FLIP": true,
+                        "WIDTH_SHIFT": 0
+                    },
+                    "imageRectangles": []
+                }
+            }
+        ],
+        "sort": [
+            [
+                [
+                    1525973048781,
+                    1525973588241
+                ],
+                [
+                    1525973050301,
+                    1525973599183
+                ]
+            ]
+        ]
+    },
+    "prevSnapshot": 1,
+    "running": {
+        "capturing": false,
+        "processing": false,
+        "save": false
+    },
+    "showCameraInPanel": true
+}
