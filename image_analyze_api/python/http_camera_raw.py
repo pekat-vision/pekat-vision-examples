@@ -17,7 +17,7 @@ while True:
     ret, frame = cap.read()
     shape = frame.shape
     # add frame size
-    url += '?width='+str(shape[1])+'&height='+str(shape[0])
-    r = requests.post(url=url, data=frame.tobytes(), headers={'Content-Type': 'application/octet-stream'})
+    u = url + '?width='+str(shape[1])+'&height='+str(shape[0])
+    r = requests.post(url=u, data=frame.tobytes(), headers={'Content-Type': 'application/octet-stream'})
     print(r.json())
 
