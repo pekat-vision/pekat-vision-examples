@@ -15,10 +15,11 @@ while True:
     shape = frame.shape
 
     # send frame to PEKAT VISION
-    r = requests.post(
+    response = requests.post(
         url='http://127.0.0.1:8000/analyze_raw_image?width='+str(shape[1])+'&height='+str(shape[0]),
         data=frame.tobytes(),
         headers={'Content-Type': 'application/octet-stream'}
     )
-    print(r.json())
+
+    print(response.json())
 
