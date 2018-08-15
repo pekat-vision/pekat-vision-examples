@@ -10,8 +10,10 @@ cap = cv2.VideoCapture(0)
 while True:
     # get frame from camera
     ret, frame = cap.read()
+
     # get image shape
     shape = frame.shape
+
     # send frame to PEKAT VISION
     r = requests.post(
         url='http://127.0.0.1:8000/analyze_raw_image?width='+str(shape[1])+'&height='+str(shape[0]),
