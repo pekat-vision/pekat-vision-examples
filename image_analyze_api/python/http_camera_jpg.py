@@ -11,6 +11,7 @@ while True:
     # get frame from camera
     ret, frame = cap.read()
     _, data = cv2.imencode('.jpg', frame)
+
     # send frame to PEKAT VISION
     response = requests.post(
         url='http://127.0.0.1:8000/analyze_image',
