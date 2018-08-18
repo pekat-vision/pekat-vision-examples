@@ -7,8 +7,6 @@
 from pypylon import pylon
 import requests
 
-url = 'http://127.0.0.1:8100/analyze_raw_image'
-
 # Init camera - load settings from file. You can get such file from Pylon Viewer in menu Camera -> Save features...
 camera_settings_file = "camera_settings.pfs"  # name of the file
 
@@ -27,9 +25,14 @@ while camera.IsGrabbing():
         shape = frame.shape
 
         # Important! Set Pixel Format in the camera to BGR 8 (for a color image) otherwise you would need to convert the image here.
-        u = url+'?width=' + str(shape[1]) + '&height=' + str(shape[0])
-        r = requests.post(url=u, data=frame.tobytes(), headers={'Content-Type': 'application/octet-stream'})
+        
+        # Call PEKAT VISION (assuming PEKAT VISION runs on 127.0.0.1:8100)
+        response = requests.post(
+            url='http://127.0.0.1:8100/analyze_raw_image?width='+str(shape[1])+'&height='+str(shape[0]),
+            data=frame.tobytes(),
+            headers={'Content-Type': 'application/octet-stream'}
+        )
 
-        print(r.json())
+        print(response.json())
 
     grabResult.Release()
