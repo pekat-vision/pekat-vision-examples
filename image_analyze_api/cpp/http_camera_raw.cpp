@@ -1,19 +1,10 @@
-#include "opencv2/opencv.hpp"
-#include <sstream>
-
-#include <cstdlib>
-#include <cstdio>
-#include <cstring>
-
 #include <curlpp/cURLpp.hpp>
 #include <curlpp/Easy.hpp>
 #include <curlpp/Options.hpp>
 #include <curlpp/Exception.hpp>
-
 #include <cv.h>
 #include <highgui.h>
 
-using namespace std;
 using namespace cv;
 
 int main(int, char**)
@@ -33,7 +24,7 @@ int main(int, char**)
         // add method to url
         url += "/analyze_raw_image";
         // add image shape to url
-        url += "?width=" + to_string(frame.cols) + "&height=" + to_string(frame.rows);
+        url += "?width=" + std::to_string(frame.cols) + "&height=" + std::to_string(frame.rows);
 
         int size = frame.total() * 3;
 
@@ -46,11 +37,16 @@ int main(int, char**)
             curlpp::Cleanup cleaner;
             curlpp::Easy request;
 
+            std::stringstream result;
+
             using namespace curlpp::Options;
             request.setOpt(new ReadStream(&is));
             request.setOpt(new InfileSize(size));
             request.setOpt(new Upload(true));
             request.setOpt(new Url(url));
+            request.setOpt(new TcpNoDelay(1));
+            // response in string
+            request.setOpt(cURLpp::Options::WriteStream(&result));
             request.perform();
         }
         catch (curlpp::LogicError& e) {
