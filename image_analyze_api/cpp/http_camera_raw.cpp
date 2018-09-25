@@ -5,7 +5,10 @@
 #include <cv.h>
 #include <highgui.h>
 
+#define COLOR_CHANNELS 3 // RGB
+
 using namespace cv;
+
 
 int main(int, char**)
 {
@@ -23,10 +26,11 @@ int main(int, char**)
 
         // add method to url
         url += "/analyze_raw_image";
+
         // add image shape to url
         url += "?width=" + std::to_string(frame.cols) + "&height=" + std::to_string(frame.rows);
 
-        int size = frame.total() * 3;
+        int size = frame.total() * COLOR_CHANNELS;
 
         // create stream
         std::istringstream is;

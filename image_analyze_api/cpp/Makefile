@@ -1,6 +1,6 @@
 CXX ?= g++
 
-CXXFLAGS += -std=c++11 -c -Wall $(shell pkg-config --cflags opencv curlpp)
+CXXFLAGS += -std=c++11 -c -Wall $(shell pkg-config --static --cflags opencv curlpp)
 LDFLAGS += $(shell pkg-config --libs opencv curlpp)
 
 all: http_file_jpg http_camera_raw

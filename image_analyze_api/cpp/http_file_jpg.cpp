@@ -5,23 +5,25 @@
 #include <cv.h>
 #include <highgui.h>
 
+#define COLOR_CHANNELS 3 // RGB
+
 
 int main(int argc, char* argv[])
 {
     std::string url = "http://127.0.0.1:8000";
-    cv::Mat img2 = cv::imread("/path/image.jpg");
+    cv::Mat img = cv::imread("/path/image.jpg");
 
     // add method to url
     url += "/analyze_raw_image";
     // add image shape to url
-    url += "?width=" + std::to_string(img2.cols);
-    url += "&height=" + std::to_string(img2.rows);
+    url += "?width=" + std::to_string(img.cols);
+    url += "&height=" + std::to_string(img.rows);
 
-    int size = img2.total() * 3;
+    int size = img.total() * COLOR_CHANNELS;
 
     // create stream
     std::istringstream is;
-    is.rdbuf()->pubsetbuf(reinterpret_cast<char*>(&img2.data[0]), size);
+    is.rdbuf()->pubsetbuf(reinterpret_cast<char*>(&img.data[0]), size);
 
     try {
         curlpp::Cleanup cleaner;
