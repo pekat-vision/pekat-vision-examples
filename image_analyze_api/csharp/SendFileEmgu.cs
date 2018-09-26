@@ -26,6 +26,8 @@ namespace PekatVisionExamples
 
             ByteArrayContent content = new ByteArrayContent(frame.GetData());
             var response = await client.PostAsync(url, content);
+            
+            Console.WriteLine(response);
     }
 
         static void Main()
