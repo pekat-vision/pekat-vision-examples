@@ -7,6 +7,9 @@ cap = cv2.VideoCapture(0)
 # cap.set(cv2.CAP_PROP_FRAME_WIDTH, 960)
 # cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 540)
 
+# it do keep alive
+request_session = requests.Session()
+
 while True:
     # get frame from camera
     ret, frame = cap.read()

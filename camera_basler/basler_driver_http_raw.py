@@ -17,6 +17,9 @@ pylon.FeaturePersistence_Load(camera_settings_file, camera.GetNodeMap(), True)
 
 camera.StartGrabbing(pylon.GrabStrategy_LatestImageOnly)
 
+# it do keep alive
+request_session = requests.Session()
+
 while camera.IsGrabbing():
     grabResult = camera.RetrieveResult(5000, pylon.TimeoutHandling_ThrowException)
 
@@ -27,7 +30,7 @@ while camera.IsGrabbing():
         # Important! Set Pixel Format in the camera to BGR 8 (for a color image) otherwise you would need to convert the image here.
         
         # Call PEKAT VISION (assuming PEKAT VISION runs on 127.0.0.1:8100)
-        response = requests.post(
+        response = request_session.post(
             url='http://127.0.0.1:8100/analyze_raw_image?width='+str(shape[1])+'&height='+str(shape[0]),
             data=frame.tobytes(),
             headers={'Content-Type': 'application/octet-stream'}
@@ -36,3 +39,4 @@ while camera.IsGrabbing():
         print(response.json())
 
     grabResult.Release()
+0
