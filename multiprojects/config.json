@@ -1,0 +1,15 @@
+{
+  "pekat_path": "<PEKAT_VISION_PATH>",
+  "camera_settings": "<CAMERA_CONFIG.pfs>",
+  "projects_map": [
+    {
+      "key": "a",
+      "path": "<PROJECT_A_PATH>"
+    },
+    {
+      "key": "b",
+      "path": "<PROJECT_B_PATH>"
+    }
+  ],
+  "port": 8100
+}

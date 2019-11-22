@@ -2,14 +2,15 @@ import os
 import requests
 import sys
 
-OK_IMAGES_PATH = './ok'
-NOK_IMAGES_PATH = './nok'
+OK_IMAGES_PATH = './ok'  # ok images
+NOK_IMAGES_PATH = './nok'  # not ok images
+APP_URL = 'http://127.0.0.1:8100'  # PEKAT runtime url
 
 
 def make_analyze(path):
     with open(path, 'rb') as data:
         response = requests.post(
-            url='http://127.0.0.1:8100/analyze_image',
+            url=APP_URL+'analyze_image',
             data=data.read(),
             headers={'Content-Type': 'application/octet-stream'}
         )
@@ -18,11 +19,11 @@ def make_analyze(path):
             print('Processing is not enabled. Please enable processing first.')
             exit(1)
 
-        if 'isOk' not in response.json():
-            print('Attribute "isOk" was not found in context. Make sure you add code which adds it.')
+        if 'result' not in response.json():
+            print('Attribute "result" was not found in context. Make sure you add code which adds it.')
             exit(1)
 
-        return response.json()['isOk']
+        return response.json()['result']
 
 
 if __name__ == '__main__':

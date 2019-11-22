@@ -39,4 +39,3 @@ while camera.IsGrabbing():
         print(response.json())
 
     grabResult.Release()
-0
