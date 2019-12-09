@@ -1,13 +1,16 @@
 import os
 import requests
 import sys
+import numpy as np
+import cv2
 
 OK_IMAGES_PATH = './ok'  # ok images
 NOK_IMAGES_PATH = './nok'  # not ok images
 APP_URL = 'http://127.0.0.1:8100'  # PEKAT runtime url
+CALC_FROM_HEATMAP = False  # the heatmap is checked
 
 
-def make_analyze(path):
+def make_analyze_result(path):
     with open(path, 'rb') as data:
         response = requests.post(
             url=APP_URL+'analyze_image',
@@ -26,13 +29,29 @@ def make_analyze(path):
         return response.json()['result']
 
 
+def make_analyze_heatmap(path):
+    with open(path, 'rb') as data:
+        response = requests.post(
+            url=APP_URL + 'analyze_image?response_type=heatmap', # response is heatmap
+            data=data.read(),
+            headers={'Content-Type': 'application/octet-stream'}
+        )
+
+        byte_array = np.fromstring(response.content, np.uint8)
+        heatmap_image = cv2.imdecode(byte_array, 1) # image is numpy array
+        # enter the code to check the heatmap
+        # return boolean
+        # for example
+        return heatmap_image.sum() < 1000000
+
+
 if __name__ == '__main__':
     false_alarm_items = []
     false_negative_items = []
 
     ok_images_list = os.listdir(OK_IMAGES_PATH)
     nok_images_list = os.listdir(NOK_IMAGES_PATH)
-
+    make_analyze = make_analyze_heatmap if CALC_FROM_HEATMAP else make_analyze_result
     try:
         for i, filename in enumerate(ok_images_list):
             # print status
