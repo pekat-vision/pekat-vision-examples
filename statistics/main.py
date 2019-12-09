@@ -39,7 +39,7 @@ def make_analyze_heatmap(path):
 
         byte_array = np.fromstring(response.content, np.uint8)
         heatmap_image = cv2.imdecode(byte_array, 1) # image is numpy array
-        # enter the code to check the heatmap
+        # enter your code to check the heatmap
         # return boolean
         # for example
         return heatmap_image.sum() < 1000000
