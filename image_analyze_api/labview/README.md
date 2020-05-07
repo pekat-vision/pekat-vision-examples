@@ -1,3 +1,5 @@
+# UPDATE 5.7.2020 - You can use LabVIEW plugin http://sine.ni.com/nips/cds/view/p/lang/en/nid/218329
+
 # PEKAT VISION - labview example
 This example shows how to send a single image to PEKAT VISION and receive response.
 ## Front panel
