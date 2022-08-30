@@ -1,0 +1,4 @@
+opencv-python
+numpy
+git+https://github.com/pekat-vision/pekat-vision-sdk-python
+watchdog
