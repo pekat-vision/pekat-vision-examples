@@ -2,7 +2,7 @@ import logging
 import os
 from time import sleep
 
-from watchdog.events import FileSystemEventHandler
+from watchdog.events import FileSystemEventHandler, FileCreatedEvent
 from watchdog.observers import Observer
 
 from PekatVisionSDK import Instance
@@ -19,13 +19,25 @@ class MyHandler(FileSystemEventHandler):
         super().__init__()
         self.p = Instance(host="127.0.0.1", port=8000, already_running=True)
 
-    def on_created(self, event):
+    def on_created(self, event: FileCreatedEvent):
         logging.info(event.src_path)
         logging.info(os.path.splitext(event.src_path))
         if os.path.splitext(event.src_path)[1].lower() in SUPPORTED_EXTENSIONS:
+            init_size = -1
+            current_size = 0
+            while init_size != current_size:
+                init_size = current_size
+                sleep(0.001)
+                current_size = os.path.getsize(event.src_path)
             logging.info("Sending to PEKAT VISION.")
-            context = self.p.analyze(event.src_path)
-            logging.info("Image analyzed: " + str(context))
+            try:
+                context = self.p.analyze(event.src_path)
+                logging.info("Image analyzed:" + str(context))
+            except Exception as e:
+                if hasattr(e, 'message'):
+                    logging.error(e.message)
+                else:
+                    logging.error(e)
         else:
             logging.warning("Invalid image format, ignoring...")
 
